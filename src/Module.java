@@ -16,4 +16,8 @@ public class Module {
     public ModuleScores getScores(Student student) {
         return studentsScores.getOrDefault(student, null);
     }
+
+    public String getName(){
+        return name;
+    }
 }
