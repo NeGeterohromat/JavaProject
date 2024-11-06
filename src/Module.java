@@ -1,9 +1,10 @@
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Module {
     private final String name;
 
-    private HashMap<Student, ModuleScores> studentsScores;
+    private HashMap<Student, ModuleScores> studentsScores = new HashMap<>();
 
     public Module(String name) {
         this.name = name;
