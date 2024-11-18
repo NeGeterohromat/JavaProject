@@ -1,3 +1,5 @@
+package org.example;
+
 public class ModuleScores {
     private final int questionsScore;
     private final int exercisesScore;
