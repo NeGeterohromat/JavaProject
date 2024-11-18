@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream:src/Module.java
+=======
+package org.example;
+
+import java.util.Collection;
+>>>>>>> Stashed changes:src/main/java/org/example/Module.java
 import java.util.HashMap;
 
 public class Module {
