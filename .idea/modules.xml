@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/untitled.iml" filepath="$PROJECT_DIR$/untitled.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaProject.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jjj/JavaProject.jjj.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jjj/JavaProject.jjj.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jjj/JavaProject.jjj.test.iml" filepath="$PROJECT_DIR$/.idea/modules/jjj/JavaProject.jjj.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaProject.main.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaProject.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/JavaProject.test.iml" filepath="$PROJECT_DIR$/.idea/modules/JavaProject.test.iml" />
     </modules>
   </component>
 </project>

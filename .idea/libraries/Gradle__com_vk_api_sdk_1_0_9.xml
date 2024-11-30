@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="Gradle: com.vk.api:sdk:1.0.9" type="java-imported" external-system-id="GRADLE">
+    <properties groupId="com.vk.api" artifactId="sdk" version="1.0.9" />
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.vk.api/sdk/1.0.9/99ccebda0759b6496dbeba684cfd09c58127d8c5/sdk-1.0.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
