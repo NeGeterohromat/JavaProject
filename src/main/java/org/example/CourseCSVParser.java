@@ -1,3 +1,5 @@
+package org.example;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -62,7 +64,7 @@ public class CourseCSVParser {
     }
 
     public static void parseModule(Course course, CSVRecord record,ArrayList<Integer> moduleStartIndexes,ArrayList<int[]> moduleScoresIndexes) {
-        Student student = new Student(record.get(1));
+        Student student = new Student(record.get(1),record.get(0));
         for (int j = 0; j < moduleStartIndexes.size(); j++) {
             Module module = course.getModules().stream().toList().get(j);
             ModuleScores ms = new ModuleScores(moduleScoresIndexes.get(j)[0] == -1 ? 0 : Integer.parseInt(record.get(moduleScoresIndexes.get(j)[0])),
