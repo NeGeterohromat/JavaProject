@@ -181,7 +181,7 @@ public class DBRepository {
 
     public static Course getCourse(String name){
         String msFormat = "SELECT * FROM moduleScores WHERE studentUlearnID='%s' AND moduleID=%d";
-        String findPrimaryFormat = "SELECT id FROM course WHERE moduleName='&s'";
+        String findPrimaryFormat = "SELECT id FROM course WHERE moduleName='%s'";
 
         Course c = new Course(name);
         List<Student> students = DBRepository.getStudents();
@@ -206,6 +206,9 @@ public class DBRepository {
                             rsCourse.getInt("exercisesScore"),
                             rsCourse.getInt("practiceScore")));
 
+                    ModuleScores ms = new ModuleScores(rsCourse.getInt("questionsScore"),
+                            rsCourse.getInt("exercisesScore"),
+                            rsCourse.getInt("practiceScore"));
                     c.addStudent(s);
                 } catch (SQLException e){
                     System.out.println(e.getMessage());

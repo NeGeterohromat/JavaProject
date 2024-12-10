@@ -21,10 +21,10 @@ public class Main {
         groupIDs.add(6214974); //главная Радиофак
         groupIDs.add(195681601); //главная ФИИТ
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
-        Course javaCourse = CourseCSVParser.getParsedCourse("java", Paths.get("java-rtf.csv"));
-        VKRepository vk = new VKRepository();
-
-
+//        Course javaCourse = CourseCSVParser.getParsedCourse("java", Paths.get("java-rtf.csv"));
+//        VKRepository vk = new VKRepository();
+//
+//
 //        printVK(javaCourse, vk);
 //
 //        DBRepository.connect();
@@ -35,17 +35,10 @@ public class Main {
 //        DBRepository.saveStudents(javaCourse.getStudentIDs().stream().map(javaCourse::getStudent).toList());
 //        DBRepository.saveModuleScores(javaCourse);
 
-        Course courceFromDB = DBRepository.getCourse("DBJava");
-        courceFromDB.getModules().stream().map(Module::getName).forEach(System.out::println);
-        System.out.println();
-        courceFromDB.getStudentIDs().forEach(System.out::println);
-        System.out.println();
-        Student s = courceFromDB.getStudent("c6f0532e-e28e-4900-bc05-21dbd533d7fa");
-        System.out.println(s.getFullName());
-        System.out.println(s.getVkID());
-        System.out.println(s.getStatus());
-        System.out.println(s.getCity());
-        printSt(s,courceFromDB);
+        Course courseFromDB = DBRepository.getCourse("DBJava");
+
+        new MenuFrame(courseFromDB);
+        //new ScatterPlotDrawer(courseFromDB, courseFromDB.getModule("10. Функциональные интерфейсы. Stream API"), ScatterPlotDrawer.PlotType.Questions).setVisible(true);
     }
 
     public static void printSt(Student s, Course c) {

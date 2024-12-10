@@ -16,11 +16,13 @@ public class CourseCSVParser {
         try (CSVParser doc = CSVParser.parse(path, Charset.forName("windows-1251"), CSVFormat.newFormat(';'))) {
             ArrayList<Integer> moduleStartIndexes = null;
             ArrayList<int[]> moduleScoresIndexes = null;
+            CSVRecord first = null;
             for (CSVRecord record : doc) {
-                if (record.getRecordNumber() > 2) {
-                    parseModule(cource,record,moduleStartIndexes,moduleScoresIndexes);
+                if (record.getRecordNumber() > 3) {
+                    parseModule(cource,record,moduleStartIndexes,moduleScoresIndexes,first);
                 } else if (record.getRecordNumber() == 1) {
                     moduleStartIndexes = getModuleStartIndexes(record, cource);
+                    first = record;
                 } else if (record.getRecordNumber() == 2) {
                     moduleScoresIndexes = getModuleScoresIndexes(record, moduleStartIndexes);
                 }
@@ -42,9 +44,9 @@ public class CourseCSVParser {
 
     public static ArrayList<int[]> getModuleScoresIndexes(CSVRecord record, ArrayList<Integer> moduleStartIndexes) {
         ArrayList<int[]> moduleScoresIndexes = new ArrayList<>();
-        for (int i = 0; i < moduleStartIndexes.size() - 1; i++) {
-            for (int j = moduleStartIndexes.get(i); j < moduleStartIndexes.get(i + 1); j++) {
-                moduleScoresIndexes.add(getEmpty());
+        for (int i = 0; i < moduleStartIndexes.size(); i++) {
+            moduleScoresIndexes.add(getEmpty());
+            for (int j = moduleStartIndexes.get(i); j < (i==moduleStartIndexes.size()-1?moduleStartIndexes.get(i)+1: moduleStartIndexes.get(i + 1)); j++) {
                 switch (record.get(j)) {
                     case "КВ" -> moduleScoresIndexes.get(i)[0] = j;
                     case "УПР" -> moduleScoresIndexes.get(i)[1] = j;
@@ -63,14 +65,16 @@ public class CourseCSVParser {
         return arr;
     }
 
-    public static void parseModule(Course course, CSVRecord record,ArrayList<Integer> moduleStartIndexes,ArrayList<int[]> moduleScoresIndexes) {
+    public static void parseModule(Course course, CSVRecord record,ArrayList<Integer> moduleStartIndexes,ArrayList<int[]> moduleScoresIndexes, CSVRecord first) {
         Student student = new Student(record.get(1),record.get(0));
         for (int j = 0; j < moduleStartIndexes.size(); j++) {
-            Module module = course.getModules().stream().toList().get(j);
+            int i = j;
+            Module module = course.getModules().stream().filter(m -> m.getName().equals(first.get(moduleStartIndexes.get(i)))).findAny().get();
             ModuleScores ms = new ModuleScores(moduleScoresIndexes.get(j)[0] == -1 ? 0 : Integer.parseInt(record.get(moduleScoresIndexes.get(j)[0])),
                     moduleScoresIndexes.get(j)[1] == -1 ? 0 : Integer.parseInt(record.get(moduleScoresIndexes.get(j)[1])),
                     moduleScoresIndexes.get(j)[2] == -1 ? 0 : Integer.parseInt(record.get(moduleScoresIndexes.get(j)[2])));
             module.addStudent(student, ms);
         }
+        course.addStudent(student);
     }
 }
