@@ -181,11 +181,12 @@ public class DBRepository {
 
     public static Course getCourse(String name){
         String msFormat = "SELECT * FROM moduleScores WHERE studentUlearnID='%s' AND moduleID=%d";
-        String findPrimaryFormat = "SELECT id FROM course WHERE moduleName='&s'";
+        String findPrimaryFormat = "SELECT id FROM course WHERE moduleName='%s'";
 
         Course c = new Course(name);
         List<Student> students = DBRepository.getStudents();
         List<Module> modules = DBRepository.getModules();
+        modules.forEach(m->System.out.println(m.getName()));
         for (Module m : modules){
 
             int moduleID = 0;
@@ -205,6 +206,11 @@ public class DBRepository {
                     m.addStudent(s,new ModuleScores(rsCourse.getInt("questionsScore"),
                             rsCourse.getInt("exercisesScore"),
                             rsCourse.getInt("practiceScore")));
+
+                    ModuleScores ms = new ModuleScores(rsCourse.getInt("questionsScore"),
+                            rsCourse.getInt("exercisesScore"),
+                            rsCourse.getInt("practiceScore"));
+                    System.out.printf("%d %d %d%n",ms.getExercisesScore(),ms.getQuestionsScore(),ms.getPracticeScore());
 
                     c.addStudent(s);
                 } catch (SQLException e){

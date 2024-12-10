@@ -46,6 +46,8 @@ public class Main {
         System.out.println(s.getStatus());
         System.out.println(s.getCity());
         printSt(s,courceFromDB);
+
+        new ScatterPlotDrawer(courceFromDB, courceFromDB.getModule("10. Функциональные интерфейсы. Stream API"), ScatterPlotDrawer.PlotType.Questions).setVisible(true);
     }
 
     public static void printSt(Student s, Course c) {
