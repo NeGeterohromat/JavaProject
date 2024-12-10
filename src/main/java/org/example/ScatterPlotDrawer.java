@@ -11,7 +11,6 @@ import java.util.List;
 public class ScatterPlotDrawer extends JFrame {
     public ScatterPlotDrawer(Course course, Module module,PlotType type){
         super(module.getName());
-        List<Student> l = course.getStudentIDs().stream().map(course::getStudent).toList();
 
         setContentPane(createModulePanel(module,
                 course.getStudentIDs().stream().map(course::getStudent).toList(),
@@ -25,7 +24,7 @@ public class ScatterPlotDrawer extends JFrame {
                 module.getName(),
                 type.name(),
                 "Practice",
-                ChartDataMapper.createQuestionToPracticeDataset(module,students,type)
+                ChartDataMapper.createQuestionToPracticeDataset(module,students)
         );
         scatterPlot.setPadding(new RectangleInsets(4,8,2,2));
         return new ChartPanel(scatterPlot);

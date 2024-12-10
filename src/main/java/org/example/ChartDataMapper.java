@@ -5,21 +5,27 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.Random;
 
 public class ChartDataMapper {
-    public static XYSeriesCollection createQuestionToPracticeDataset(Module module, List<Student> students, ScatterPlotDrawer.PlotType type){
+    private static Random r = new Random();
+
+    public static XYSeriesCollection createQuestionToPracticeDataset(Module module, List<Student> students){
         XYSeriesCollection dataset = new XYSeriesCollection();
-        XYSeries series = new XYSeries(String.format("%s to practice",type.name()));
+        XYSeries seriesQ = new XYSeries("Questions to practice");
+        XYSeries seriesE = new XYSeries("Exercises to practice");
 
-        Function<Student,Integer> func = s -> switch (type){
-            case Questions -> module.getScores(s).getQuestionsScore();
-            case Exercises -> module.getScores(s).getExercisesScore();
-        };
+        students.forEach(s-> {
+            seriesQ.add(getRandomShift(module.getScores(s).getQuestionsScore()),getRandomShift(module.getScores(s).getPracticeScore()));
+            seriesE.add(getRandomShift(module.getScores(s).getExercisesScore()),getRandomShift(module.getScores(s).getPracticeScore()));
+        });
 
-        students.forEach(s-> series.add(func.apply(s).intValue(),module.getScores(s).getPracticeScore()));
-
-        dataset.addSeries(series);
+        dataset.addSeries(seriesQ);
+        dataset.addSeries(seriesE);
         return dataset;
+    }
+
+    private static double getRandomShift(int number){
+        return number+r.nextDouble(-0.2,0.2);
     }
 }

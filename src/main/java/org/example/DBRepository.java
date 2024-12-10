@@ -186,7 +186,6 @@ public class DBRepository {
         Course c = new Course(name);
         List<Student> students = DBRepository.getStudents();
         List<Module> modules = DBRepository.getModules();
-        modules.forEach(m->System.out.println(m.getName()));
         for (Module m : modules){
 
             int moduleID = 0;
@@ -210,8 +209,6 @@ public class DBRepository {
                     ModuleScores ms = new ModuleScores(rsCourse.getInt("questionsScore"),
                             rsCourse.getInt("exercisesScore"),
                             rsCourse.getInt("practiceScore"));
-                    System.out.printf("%d %d %d%n",ms.getExercisesScore(),ms.getQuestionsScore(),ms.getPracticeScore());
-
                     c.addStudent(s);
                 } catch (SQLException e){
                     System.out.println(e.getMessage());
