@@ -1,8 +1,12 @@
-package org.example;
+package org.example.csv;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.example.course.Course;
+import org.example.course.Module;
+import org.example.course.ModuleScores;
+import org.example.course.Student;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -36,7 +40,7 @@ public class CourseCSVParser {
         for (int i = 0; i < record.size(); i++) {
             if (record.get(i).matches("\\d+\\. .*")) {
                 moduleStartIndexes.add(i);
-                course.addModule(new Module(record.get(i)));
+                course.addModule(new org.example.course.Module(record.get(i)));
             }
         }
         return moduleStartIndexes;

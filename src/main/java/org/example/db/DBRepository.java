@@ -1,4 +1,9 @@
-package org.example;
+package org.example.db;
+
+import org.example.course.Course;
+import org.example.course.Module;
+import org.example.course.ModuleScores;
+import org.example.course.Student;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -82,10 +87,10 @@ public class DBRepository {
         }
     }
 
-    public static void saveModules(Collection<Module> modules){
+    public static void saveModules(Collection<org.example.course.Module> modules){
         String sql = "INSERT INTO course(moduleName) VALUES(?)";
 
-        for (Module m : modules){
+        for (org.example.course.Module m : modules){
             try (Connection conn = DriverManager.getConnection(URL);
             PreparedStatement pstmt = conn.prepareStatement(sql)){
                 pstmt.setString(1,m.getName());
@@ -119,7 +124,7 @@ public class DBRepository {
 
         String findPrimarySql = "SELECT id FROM course WHERE moduleName='";
 
-        for (Module m : course.getModules()){
+        for (org.example.course.Module m : course.getModules()){
             for (Student s : course.getStudentIDs().stream().map(course::getStudent).toList()){
                 ModuleScores ms = m.getScores(s);
                 try (Connection conn = DriverManager.getConnection(URL);
@@ -140,16 +145,16 @@ public class DBRepository {
         }
     }
 
-    public static List<Module> getModules(){
+    public static List<org.example.course.Module> getModules(){
         String sql = "SELECT moduleName FROM course";
 
-        List<Module> res = new ArrayList<>();
+        List<org.example.course.Module> res = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(URL);
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(sql)){
             while (rs.next()){
-                res.add(new Module(rs.getString("moduleName")));
+                res.add(new org.example.course.Module(rs.getString("moduleName")));
             }
         } catch (SQLException e){
             System.out.println(e.getMessage());
@@ -185,7 +190,7 @@ public class DBRepository {
 
         Course c = new Course(name);
         List<Student> students = DBRepository.getStudents();
-        List<Module> modules = DBRepository.getModules();
+        List<org.example.course.Module> modules = DBRepository.getModules();
         for (Module m : modules){
 
             int moduleID = 0;
