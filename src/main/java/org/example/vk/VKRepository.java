@@ -1,4 +1,4 @@
-package org.example;
+package org.example.vk;
 
 import com.vk.api.sdk.client.TransportClient;
 import com.vk.api.sdk.client.VkApiClient;
@@ -6,10 +6,9 @@ import com.vk.api.sdk.client.actors.UserActor;
 import com.vk.api.sdk.exceptions.ApiException;
 import com.vk.api.sdk.exceptions.ClientException;
 import com.vk.api.sdk.httpclient.HttpTransportClient;
-import com.vk.api.sdk.objects.groups.Group;
-import com.vk.api.sdk.objects.groups.GroupsArray;
 import com.vk.api.sdk.objects.users.Fields;
 import com.vk.api.sdk.objects.users.UserFull;
+import org.example.course.Course;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -30,6 +29,23 @@ public class VKRepository {
         AppID = getAppID();
         Code = getCode();
         actor = new UserActor(AppID, Code);
+    }
+
+    public void fillCourse(Course c, HashSet<Integer> groupIDs, String universityName) throws ClientException, ApiException {
+        for (String id : c.getStudentIDs()) {
+            List<UserFull> list = getUsersFieldsByName(c.getStudent(id).getFullName(), Fields.STATUS, Fields.UNIVERSITIES, Fields.CITY);
+            UserFull user = getUserByUniversityNameAndGroupIDs(list, universityName,groupIDs);
+            if (user != null) {
+                c.getStudent(id).setStatus(user.getStatus());
+                c.getStudent(id).setCity(user.getCity() == null ? null : user.getCity().getTitle());
+                c.getStudent(id).setVkID(user.getId());
+            }
+            try{
+                TimeUnit.MILLISECONDS.sleep(250);
+            } catch ( InterruptedException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public List<UserFull> getUsersFieldsByName(String name, Fields... fields) throws ClientException, ApiException {

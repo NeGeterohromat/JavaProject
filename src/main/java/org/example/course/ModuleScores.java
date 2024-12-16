@@ -1,4 +1,4 @@
-package org.example;
+package org.example.course;
 
 public class ModuleScores {
     private final int questionsScore;

@@ -1,10 +1,8 @@
-package org.example;
+package org.example.course;
 
 import java.util.Collection;
 import java.util.HashMap;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.Set;
 
 public class Course {

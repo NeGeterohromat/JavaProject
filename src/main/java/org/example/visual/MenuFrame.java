@@ -1,4 +1,7 @@
-package org.example;
+package org.example.visual;
+
+import org.example.course.Course;
+import org.example.course.Module;
 
 import javax.swing.*;
 
@@ -21,7 +24,6 @@ public class MenuFrame extends JFrame {
     }
 
     private void callScatterPlotDrawer(Course course, String  moduleName){
-        new ScatterPlotDrawer(course, course.getModule(moduleName),
-                ScatterPlotDrawer.PlotType.Questions).setVisible(true);
+        new ScatterPlotDrawer(course, course.getModule(moduleName)).setVisible(true);
     }
 }
